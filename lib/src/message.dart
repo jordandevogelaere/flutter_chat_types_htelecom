@@ -3,7 +3,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart';
 /// All possible statuses message can have.
 enum Status { delivered, error, seen, sending, sent }
 
-enum MessageType { text, unsupported }
+enum MessageType { text, unsupported, system }
 
 abstract class Message {
   const Message({
