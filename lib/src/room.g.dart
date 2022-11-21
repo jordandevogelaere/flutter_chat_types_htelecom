@@ -7,23 +7,25 @@ part of 'room.dart';
 // **************************************************************************
 
 Room _$RoomFromJson(Map<String, dynamic> json) => Room(
-      createdAt: json['createdAt'] as int?,
       id: json['id'] as String,
       imageUrl: json['imageUrl'] as String?,
       lastMessages: (json['lastMessages'] as List<dynamic>?)
           ?.map((e) => Message.fromJson(e as Map<String, dynamic>))
           .toList(),
       metadata: json['metadata'] as Map<String, dynamic>?,
-      name: json['name'] as String?,
+      to: RegisteredChannel.fromJson(json['to'] as Map<String, dynamic>),
       type: $enumDecodeNullable(_$RoomTypeEnumMap, json['type']),
       updatedAt: json['updatedAt'] as int?,
-      users: (json['users'] as List<dynamic>)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      from: VirtualNumber.fromJson(json['from'] as Map<String, dynamic>),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$RoomToJson(Room instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'createdAt': instance.createdAt.toIso8601String(),
+    'id': instance.id,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -31,21 +33,19 @@ Map<String, dynamic> _$RoomToJson(Room instance) {
     }
   }
 
-  writeNotNull('createdAt', instance.createdAt);
-  val['id'] = instance.id;
   writeNotNull('imageUrl', instance.imageUrl);
   writeNotNull(
       'lastMessages', instance.lastMessages?.map((e) => e.toJson()).toList());
   writeNotNull('metadata', instance.metadata);
-  writeNotNull('name', instance.name);
+  val['to'] = instance.to.toJson();
   writeNotNull('type', _$RoomTypeEnumMap[instance.type]);
   writeNotNull('updatedAt', instance.updatedAt);
-  val['users'] = instance.users.map((e) => e.toJson()).toList();
+  val['user'] = instance.user.toJson();
+  val['from'] = instance.from.toJson();
   return val;
 }
 
 const _$RoomTypeEnumMap = {
-  RoomType.channel: 'channel',
   RoomType.direct: 'direct',
   RoomType.group: 'group',
 };

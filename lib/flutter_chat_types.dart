@@ -6,5 +6,4 @@ export 'src/messages/system_message.dart';
 export 'src/messages/text_message.dart';
 export 'src/preview_data.dart';
 export 'src/preview_data.dart';
-export 'src/room.dart';
 export 'src/user.dart';

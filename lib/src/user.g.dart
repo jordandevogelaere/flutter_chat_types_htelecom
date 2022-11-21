@@ -24,14 +24,23 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       otpChecked: json['otpChecked'] as bool?,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'firstName': instance.firstName,
-      'id': instance.id,
-      'imageUrl': instance.imageUrl,
-      'lastName': instance.lastName,
-      'lastSeen': instance.lastSeen?.toIso8601String(),
-      'metadata': instance.metadata,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'otpChecked': instance.otpChecked,
-    };
+Map<String, dynamic> _$UserToJson(User instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
+  val['firstName'] = instance.firstName;
+  val['id'] = instance.id;
+  writeNotNull('imageUrl', instance.imageUrl);
+  val['lastName'] = instance.lastName;
+  writeNotNull('lastSeen', instance.lastSeen?.toIso8601String());
+  writeNotNull('metadata', instance.metadata);
+  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
+  writeNotNull('otpChecked', instance.otpChecked);
+  return val;
+}

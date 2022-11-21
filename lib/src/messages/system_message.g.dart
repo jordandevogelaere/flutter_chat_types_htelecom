@@ -6,20 +6,26 @@ part of 'system_message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SystemMessage _$SystemMessageFromJson(Map<String, dynamic> json) => SystemMessage(
+SystemMessage _$SystemMessageFromJson(Map<String, dynamic> json) =>
+    SystemMessage(
       author: User.fromJson(json['author'] as Map<String, dynamic>),
-      createdAt: json['createdAt'] as DateTime?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
       id: json['id'] as String,
       metadata: json['metadata'] as Map<String, dynamic>?,
       remoteId: json['remoteId'] as String?,
-      repliedMessage:
-          json['repliedMessage'] == null ? null : Message.fromJson(json['repliedMessage'] as Map<String, dynamic>),
+      repliedMessage: json['repliedMessage'] == null
+          ? null
+          : Message.fromJson(json['repliedMessage'] as Map<String, dynamic>),
       roomId: json['roomId'] as String?,
       showStatus: json['showStatus'] as bool?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['status']),
       text: json['text'] as String,
       type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
-      updatedAt: json['updatedAt'] as DateTime?,
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$SystemMessageToJson(SystemMessage instance) {
@@ -33,7 +39,7 @@ Map<String, dynamic> _$SystemMessageToJson(SystemMessage instance) {
     }
   }
 
-  writeNotNull('createdAt', instance.createdAt);
+  writeNotNull('createdAt', instance.createdAt?.toIso8601String());
   val['id'] = instance.id;
   writeNotNull('metadata', instance.metadata);
   writeNotNull('remoteId', instance.remoteId);
@@ -42,7 +48,7 @@ Map<String, dynamic> _$SystemMessageToJson(SystemMessage instance) {
   writeNotNull('showStatus', instance.showStatus);
   writeNotNull('status', _$StatusEnumMap[instance.status]);
   val['type'] = _$MessageTypeEnumMap[instance.type]!;
-  writeNotNull('updatedAt', instance.updatedAt);
+  writeNotNull('updatedAt', instance.updatedAt?.toIso8601String());
   val['text'] = instance.text;
   return val;
 }
@@ -56,7 +62,7 @@ const _$StatusEnumMap = {
 };
 
 const _$MessageTypeEnumMap = {
-  MessageType.system: 'system',
   MessageType.text: 'text',
   MessageType.unsupported: 'unsupported',
+  MessageType.system: 'system',
 };
