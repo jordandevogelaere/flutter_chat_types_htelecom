@@ -6,7 +6,7 @@ import '../user.dart' show User;
 
 part 'text_message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class TextMessage extends Message {
   const TextMessage._({
     required super.author,

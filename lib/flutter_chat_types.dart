@@ -12,3 +12,4 @@ export 'src/registered_channel.dart';
 export 'src/room.dart';
 export 'src/user.dart';
 export 'src/virtual_number.dart';
+export 'src/channels.dart';

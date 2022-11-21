@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -28,4 +29,28 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  User copyWith({
+    DateTime? createdAt,
+    String? firstName,
+    String? id,
+    String? imageUrl,
+    String? lastName,
+    DateTime? lastSeen,
+    Map<String, dynamic>? metadata,
+    DateTime? updatedAt,
+    bool? otpChecked,
+  }) {
+    return User(
+      createdAt: createdAt ?? this.createdAt,
+      firstName: firstName ?? this.firstName,
+      id: id ?? this.id,
+      imageUrl: imageUrl ?? this.imageUrl,
+      lastName: lastName ?? this.lastName,
+      lastSeen: lastSeen ?? this.lastSeen,
+      metadata: metadata ?? this.metadata,
+      updatedAt: updatedAt ?? this.updatedAt,
+      otpChecked: otpChecked ?? this.otpChecked,
+    );
+  }
 }
