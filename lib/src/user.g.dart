@@ -7,41 +7,31 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      createdAt: json['createdAt'] as int?,
-      firstName: json['firstName'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      firstName: json['firstName'] as String,
       id: json['id'] as String,
+      lastName: json['lastName'] as String,
       imageUrl: json['imageUrl'] as String?,
-      lastName: json['lastName'] as String?,
-      lastSeen: json['lastSeen'] as int?,
+      lastSeen: json['lastSeen'] == null
+          ? null
+          : DateTime.parse(json['lastSeen'] as String),
       metadata: json['metadata'] as Map<String, dynamic>?,
-      role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
-      updatedAt: json['updatedAt'] as int?,
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
+      otpChecked: json['otpChecked'] as bool?,
     );
 
-Map<String, dynamic> _$UserToJson(User instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('createdAt', instance.createdAt);
-  writeNotNull('firstName', instance.firstName);
-  val['id'] = instance.id;
-  writeNotNull('imageUrl', instance.imageUrl);
-  writeNotNull('lastName', instance.lastName);
-  writeNotNull('lastSeen', instance.lastSeen);
-  writeNotNull('metadata', instance.metadata);
-  writeNotNull('role', _$RoleEnumMap[instance.role]);
-  writeNotNull('updatedAt', instance.updatedAt);
-  return val;
-}
-
-const _$RoleEnumMap = {
-  Role.admin: 'admin',
-  Role.agent: 'agent',
-  Role.moderator: 'moderator',
-  Role.user: 'user',
-};
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'firstName': instance.firstName,
+      'id': instance.id,
+      'imageUrl': instance.imageUrl,
+      'lastName': instance.lastName,
+      'lastSeen': instance.lastSeen?.toIso8601String(),
+      'metadata': instance.metadata,
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'otpChecked': instance.otpChecked,
+    };

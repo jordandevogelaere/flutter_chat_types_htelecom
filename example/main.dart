@@ -1,9 +1,15 @@
-import 'package:flutter_chat_types/flutter_chat_types.dart'
-    show TextMessage, User;
+import 'package:flutter_chat_types/flutter_chat_types.dart' show TextMessage, User;
 
 void main() {
-  const user = User(id: 'authorId');
-  const message = TextMessage(author: user, id: 'id', text: 'text');
+  var user = const User(id: 'authorId', createdAt: null, firstName: '', lastName: '');
+  var message = TextMessage(
+    author: user,
+    id: 'id',
+    text: 'text',
+    createdAt: DateTime.now(),
+    metadata: {},
+    roomId: '',
+  );
   // ignore: avoid_print
   print(message.toJson());
   final json = {

@@ -1,35 +1,11 @@
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-import 'messages/audio_message.dart';
-import 'messages/custom_message.dart';
-import 'messages/file_message.dart';
-import 'messages/image_message.dart';
-import 'messages/system_message.dart';
-import 'messages/text_message.dart';
-import 'messages/unsupported_message.dart';
-import 'messages/video_message.dart';
-import 'user.dart' show User;
-
-/// All possible message types.
-enum MessageType {
-  audio,
-  custom,
-  file,
-  image,
-  system,
-  text,
-  unsupported,
-  video
-}
+import 'package:flutter_chat_types/flutter_chat_types.dart';
 
 /// All possible statuses message can have.
 enum Status { delivered, error, seen, sending, sent }
 
-/// An abstract class that contains all variables and methods
-/// every message will have.
-@immutable
-abstract class Message extends Equatable {
+enum MessageType { text, unsupported }
+
+abstract class Message {
   const Message({
     required this.author,
     this.createdAt,
@@ -47,36 +23,14 @@ abstract class Message extends Equatable {
   /// Creates a particular message from a map (decoded JSON).
   /// Type is determined by the `type` field.
   factory Message.fromJson(Map<String, dynamic> json) {
-    final type = MessageType.values.firstWhere(
-      (e) => e.name == json['type'],
-      orElse: () => MessageType.unsupported,
-    );
-
-    switch (type) {
-      case MessageType.audio:
-        return AudioMessage.fromJson(json);
-      case MessageType.custom:
-        return CustomMessage.fromJson(json);
-      case MessageType.file:
-        return FileMessage.fromJson(json);
-      case MessageType.image:
-        return ImageMessage.fromJson(json);
-      case MessageType.system:
-        return SystemMessage.fromJson(json);
-      case MessageType.text:
-        return TextMessage.fromJson(json);
-      case MessageType.unsupported:
-        return UnsupportedMessage.fromJson(json);
-      case MessageType.video:
-        return VideoMessage.fromJson(json);
-    }
+    return TextMessage.fromJson(json);
   }
 
   /// User who sent this message.
   final User author;
 
   /// Created message timestamp, in ms.
-  final int? createdAt;
+  final DateTime? createdAt;
 
   /// Unique ID of the message.
   final String id;
@@ -102,22 +56,7 @@ abstract class Message extends Equatable {
   /// [MessageType].
   final MessageType type;
 
-  /// Updated message timestamp, in ms.
-  final int? updatedAt;
-
-  /// Creates a copy of the message with an updated data.
-  Message copyWith({
-    User? author,
-    int? createdAt,
-    String? id,
-    Map<String, dynamic>? metadata,
-    String? remoteId,
-    Message? repliedMessage,
-    String? roomId,
-    bool? showStatus,
-    Status? status,
-    int? updatedAt,
-  });
+  final DateTime? updatedAt;
 
   /// Converts a particular message to the map representation, serializable to JSON.
   Map<String, dynamic> toJson();
